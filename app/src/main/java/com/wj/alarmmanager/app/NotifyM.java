@@ -10,7 +10,10 @@ import android.content.Intent;
  * Created by WJ on 5/12/2014.
  */
 public class NotifyM {
+    int count=0;
+
     public void SetNotify(Context context){
+        count++;
         NotificationManager NotMgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         int icon = R.drawable.ic_launcher;
         long when=System.currentTimeMillis();
@@ -22,7 +25,7 @@ public class NotifyM {
         String title="這是標題";
         String content="這是提醒內容";
         notifi.setLatestEventInfo(context,title,content,pIntent);
-        notifi.number=1;
+        notifi.number=count;
         NotMgr.notify(1,notifi);
     }
 }

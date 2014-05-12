@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         btn=(Button)findViewById(R.id.button);
         btn.setOnClickListener(Active_Alarm);
@@ -37,7 +37,8 @@ Button btn;
         intent.putExtra("msg","partyOn");
 
         pi=PendingIntent.getBroadcast(context,0,intent,0);
-        alarmMgr.setRepeating(AlarmManager.RTC,1*second,5*second,pi);
+        alarmMgr.setRepeating(AlarmManager.RTC,1*second,10*second,pi);
+        //alarmMgr.setInexactRepeating();
     }
 
     @Override
