@@ -10,12 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class MainActivity extends Activity {
 Button btn;
-    AlarmManager alarmMgr;
+
+    Button close;
     PendingIntent pi;
-    int second=1000;
+
     TextView textView;
+    Calendar mcalendar;
+    ReminderManager RemindM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,26 +29,29 @@ Button btn;
         btn=(Button)findViewById(R.id.button);
         btn.setOnClickListener(Active_Alarm);
         textView=(TextView)findViewById(R.id.textView);
+        close=(Button)findViewById(R.id.close);
+        close.setOnClickListener(closeAlarm);
+         RemindM=new ReminderManager(MainActivity.this);
+
     }
+
     Button.OnClickListener Active_Alarm=new Button.OnClickListener(){
         @Override
         public void onClick(View view) {
-         setAlarm(MainActivity.this);
+            mcalendar=Calendar.getInstance();
+            mcalendar.set(Calendar.SECOND,5);
+            RemindM.setAlarm();
         }
     };
-    public void setAlarm(Context context){
-        alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent=new Intent(context,AlarmReceiver.class);
-        intent.putExtra("msg","partyOn");
 
-        pi=PendingIntent.getBroadcast(context,0,intent,0);
-        alarmMgr.setRepeating(AlarmManager.RTC,1*second,10*second,pi);
-        //alarmMgr.setInexactRepeating();
-    }
-
+    Button.OnClickListener closeAlarm=new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+          RemindM.cancelAlarm();
+        }
+    };
     @Override
     protected void onDestroy() {
-        alarmMgr.cancel(pi);
 
         super.onDestroy();
     }

@@ -17,14 +17,13 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context,Intent intent){
 
         Bundle bundle =intent.getExtras();
-        NotifyM nm=new NotifyM();
+        //NotifyM nm=new NotifyM();
         if(bundle.get("msg").equals("partyOn")){
 
-            Log.v("WJ", "Receive");
-
+        Log.d("WJ","doReceiver");
          Toast toast=Toast.makeText(context, "Hello World", Toast.LENGTH_SHORT);
                  toast.show();
-         nm.SetNotify(context);
+        // nm.SetNotify(context);
         }
 
     }
